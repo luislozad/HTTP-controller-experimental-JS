@@ -1,7 +1,7 @@
 require('./routing');
 
 const { routers } = require('./http');
-const { normalizeRoute as routeFix } = require('./helper');
+const { normalizeRoute:routeFix } = require('./helper');
 
 exports.onCreateServer = function (req, res) {
 	const getRoute = (item) => item.route == req.url || routeFix(item.route) == req.url;
