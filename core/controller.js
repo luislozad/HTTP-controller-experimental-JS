@@ -1,19 +1,18 @@
 require('./routing');
 
 const { routers } = require('./http');
-const { normalizeRoute:routeFix } = require('./helper');
+const { getRoute } = require('./helper');
 
 exports.onCreateServer = function (req, res) {
-	const getRoute = (item) => item.route == req.url || routeFix(item.route) == req.url;
-	const getRouteNotFound = (item) => item.route == '*' || item.route == '/*';
+	const getRouteNotFound = ({ route }) => route == '*' || route == '/*';
 
-	const routeDef = routers.get.find(getRoute);
+	const { route, params } = getRoute(routers.get, req.url);
 	const routeDefNotFound = routers.get.find(getRouteNotFound);
 
-	if (routeDef) {
-		routeDef.handler(req, res);
+	if (route) {
+		route.handler({ params, req, res });
 	} else if (routeDefNotFound) {
-		routeDefNotFound.handler(req, res);
+		routeDefNotFound.handler({ params, req, res });
 	} else {
 		routeControllerDefault(req, res);
 	}
