@@ -51,7 +51,6 @@ function getRoute(routes, url) {
 				routeCurrent.route = routes[i];
 				routeCurrent.params = match;
 			} else {
-				const routeResultFix = new Route(route);
 				const match = routeResult.match(normalizeReverseRoute(url));
 
 				if (match) {
