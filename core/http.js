@@ -8,7 +8,7 @@ const routers = {
 exports.routers = routers;
 
 exports.get = function(route, handler) {
-	const filterRoute = (item) => item.route == route;
+	const filterRoute = (item) => item.route === route;
 	
 	if (!routers.get.some(filterRoute)) {
 		routers.get.push({

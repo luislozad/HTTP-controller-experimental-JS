@@ -4,7 +4,7 @@ const { routers } = require('./http');
 const { getRoute } = require('./helper');
 
 exports.onCreateServer = function (req, res) {
-	const getRouteNotFound = ({ route }) => route == '*' || route == '/*';
+	const getRouteNotFound = ({ route }) => route === '*' || route === '/*';
 
 	const { route, params } = getRoute(routers.get, req.url);
 	const routeDefNotFound = routers.get.find(getRouteNotFound);
